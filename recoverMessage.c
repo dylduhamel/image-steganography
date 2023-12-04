@@ -8,10 +8,10 @@
  *   Requires getImageArgs.h (.c) and ppmReadWrite.h (.c)
  *
  * Compile:
- *   gcc -ansi -pedantic -Wall labSolver.c getImageArgs.c ppmReadWrite.c
- *   ./a.out -b 2 will_hidden.ppm
+ *   gcc -ansi -pedantic -Wall -o recover recoverMessage.c getImageArgs.c ppmReadWrite.c
+ *   ./recover -b 2 will_hidden.ppm
  *
- * @author Dylan Duhamel {@literal <duhadm19@wfu.edu>}
+ * @author Dylan Duhamel {@literal duhadm19@wfu.edu}
  * @date Feb. 19, 2022
  * @assignment Lab 4
  * @course CSC 250
@@ -46,13 +46,15 @@ int main(int argc, char *argv[]) {
 
     recoverMessage(img, argv[2]); /* where we do all of the work */
 
+    /* Free memory */
+    if(img -> data) free(img -> data);
     if(img) free(img);  
 
     return 0;
 }
 
 /* function to recover the hidden message
-takes a struct pointer of bites, and the args index for size of bit to search in */
+takes a struct pointer of bits, and the args index for size of bit to search in */
 int recoverMessage(struct Image *img, char bits[]) {
     /* star operator  (*img).width ===== img->width */
     unsigned char *color = (unsigned char *) img->data;  /* pointer to the RGB color components of img */
@@ -60,7 +62,7 @@ int recoverMessage(struct Image *img, char bits[]) {
     char ch = 0x0;
     char prevCh; /* prev character for loop */
     char steganString[50] = "";
-    int i; /* local counter */
+    int i = 0; /* local counter */
     int j; /* nested loop counter */
     char mask; /* size of mask */
     int shift; /* how much to shift each time*/
@@ -89,7 +91,7 @@ int recoverMessage(struct Image *img, char bits[]) {
         ch = 0x0;
         ch = (color[i] & mask) << shift;
         i++;
-        /* shifting and masking for length needed (more when 'stealing' less bits */
+        /* shifting and masking for length needed (more when 'stealing' less bits) */
         for(j = 0; j < loop; j++) {
             ch = (ch | (color[i] & mask)) << shift;
             i++;
@@ -108,8 +110,8 @@ int recoverMessage(struct Image *img, char bits[]) {
     }
 
     /* prints the appropriate information after completion */
-    printf("%s",steganString);
-    printf("\n%ld characters recovered from %d color components (%d pixels)\n", strlen(steganString), i, (i + 2)/3);
+    printf("%s",steganString); 
+    printf("\n%ld characters recovered from %d color components (%d pixels)\n", strlen(steganString), i, (i + 2)/3); 
     
     return 1;
 }

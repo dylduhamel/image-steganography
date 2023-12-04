@@ -25,7 +25,7 @@
  *  imageFilename - pointer to the filename that will be encrypted or decrypted 
  */
 int processHideImageArgs(int argc, char *argv[], int* bitPtr, char textFilename[], char imageFilename[]) {
-    int opt;
+    int opt;  
     int gotBit = 0;
 
     while ((opt = getopt(argc, argv, "b:")) != -1) {

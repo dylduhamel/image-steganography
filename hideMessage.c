@@ -10,10 +10,10 @@
  *   Requires getImageArgs.h (.c) and ppmReadWrite.h (.c)
  *
  * Compile:
- *   gcc -ansi -pedantic -Wall lab5.c getImageArgs.c ppmReadWrite.c
- *   ./a.out -b 2 message.txt will.ppm
+ *   gcc -ansi -pedantic -Wall -o hide hideMessage.c getImageArgs.c ppmReadWrite.c
+ *   ./hide -b 2 message.txt will.ppm
  *
- * @author Your Dylan Duhamel {@literal <pluf@wfu.edu>}
+ * @author Dylan Duhamel {@literal duhadm19@wfu.edu}
  * @date Feb. 27, 2022
  * @assignment Lab 5
  * @course CSC 250
@@ -26,7 +26,7 @@
 #include "getImageArgs.h"
 
 
-int hideMessage(struct Image *img, int bit, char textFilename[]);  
+int hideMessageInImage(struct Image *img, int bit, char textFilename[]);  
 void printBits(unsigned char x);
 
 
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     if(!fileOk)  
         return 1;
 
-    hideMessage(img, bit, textFilename);
+    hideMessageInImage(img, bit, textFilename);
 
     /* concatonate _hidden.ppm to the name of the orgImageFilename */
     strcpy(newImageFilename, orgImageFilename);
@@ -61,10 +61,9 @@ int main(int argc, char *argv[])
         return 1;
     }  
 
-    /* this print in main is OK, it is AJ certified */
-    /* but NO other prints in main are allowed      */
     printf("image saved as %s \n", newImageFilename);  
 
+    /* Free memory */
     if(img -> data) free(img -> data);
     if(img) free(img);  
 
@@ -78,10 +77,10 @@ int main(int argc, char *argv[])
     returns an integer 1 is no issues
     edits the LSB's on each RGB value to hide char
  */
-int hideMessage(struct Image *img, int bit, char textFilename[]) {
+int hideMessageInImage(struct Image *img, int bit, char textFilename[]) {
     unsigned char *color = (unsigned char *) img -> data;
-    FILE *filePtr = fopen(textFilename, "rie");
-    unsigned char ch; /* DOES THIS NEED TO BE UNSIGNED?? */
+    FILE *filePtr = fopen(textFilename, "rie"); /* File pointer to text that will be hidden */
+    unsigned char ch; 
     int i = 0; /* index */
     int charIndex = 2; /* begins at 2 because we add :) at the end (2 char) */
 
@@ -90,7 +89,7 @@ int hideMessage(struct Image *img, int bit, char textFilename[]) {
         return 0;
     }
 
-    /* getting the initial char */
+    /* getting the initial char of text to hide*/
     ch = fgetc(filePtr);
 
     /* 1 bit LSB */
