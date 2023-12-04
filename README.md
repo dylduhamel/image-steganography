@@ -4,6 +4,10 @@
 
 This program is designed for hiding and recovering messages in PPM (Portable Pixmap) image files using the Least Significant Bit (LSB) method. It manipulates the LSBs (1, 2, or 4 bits) of the image's pixels to encode and decode secret messages.
 
+![IMG_0131](https://github.com/dylduhamel/image-steganography/assets/70403658/f41961c8-6476-483a-8d03-c3f5584c436c)
+![IMG_0130](https://github.com/dylduhamel/image-steganography/assets/70403658/7d7c5484-b7a0-4d6f-bab0-4c17e3ace4ca)
+
+
 ## Components
 
 - `hideMessage.c`: Hides a message in a PPM file.
