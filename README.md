@@ -33,14 +33,18 @@ Usage
     [message file]: Text file containing the message to hide.
     [original PPM file]: PPM image file in which to hide the message.
 
-recoverMessage.c
+### recoverMessage.c
 
 Extracts a hidden message from a PPM file.
 Compilation
 
+#### Compilation
+
 ```
 gcc -ansi -pedantic -Wall -o recover recoverMessage.c getImageArgs.c ppmReadWrite.c
 ```
+
+Usage
 
 ```
 ./recover -b [LSB bits] [PPM file with hidden message]
