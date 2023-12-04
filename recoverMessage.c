@@ -4,7 +4,7 @@
  * The number of LSb used and PPM image file name is provided using command line arguments. If either
  * argument is not proveded or is incorrect, the program will exit and provide an error message.
  *
- * Note: 
+ * Notes: 
  *   Requires getImageArgs.h (.c) and ppmReadWrite.h (.c)
  *
  * Compile:

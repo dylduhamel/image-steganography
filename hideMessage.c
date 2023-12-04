@@ -6,7 +6,7 @@
  * file name are provided using command line arguments. If the arguments are  incorrect, the 
  * program will exit and provide an error message.
  *
- * Note:
+ * Notes:
  *   Requires getImageArgs.h (.c) and ppmReadWrite.h (.c)
  *
  * Compile:
@@ -15,8 +15,6 @@
  *
  * @author Dylan Duhamel {@literal duhadm19@wfu.edu}
  * @date Feb. 27, 2022
- * @assignment Lab 5
- * @course CSC 250
  **/
 
 #include <stdio.h>
