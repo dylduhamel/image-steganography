@@ -13,8 +13,6 @@
  *
  * @author Dylan Duhamel {@literal duhadm19@wfu.edu}
  * @date Feb. 19, 2022
- * @assignment Lab 4
- * @course CSC 250
  **/
 
 #include <stdio.h>
