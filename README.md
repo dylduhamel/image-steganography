@@ -17,41 +17,49 @@ This program is designed for hiding and recovering messages in PPM (Portable Pix
 
 ## Compilation and Execution
 
-### hideMessage.c
+## hideMessage.c
 
 Hides a message in a PPM file.
 
 #### Compilation
-
+Compilation with make can be accomplished with
 ```
-gcc -ansi -pedantic -Wall -o hide hideMessage.c getImageArgs.c ppmReadWrite.c
+cd hideMessage/ && make
+```
+or compiled manually with
+```
+gcc -ansi -pedantic -Wall hideMessage.c -o hideMessage getImageArgs.c ppmReadWrite.c
 ```
 
 Usage
 
 ```
-./hide -b [LSB bits] [message file] [original PPM file]
+./hideMessage -b [LSB bits] [message file] [original PPM file]
 ```
 
     [LSB bits]: Number of LSBs to use (1, 2, or 4).
     [message file]: Text file containing the message to hide.
     [original PPM file]: PPM image file in which to hide the message.
 
-### recoverMessage.c
+## recoverMessage.c
 
 Extracts a hidden message from a PPM file.
 Compilation
 
 #### Compilation
-
+Compilation with make can be accomplished with
 ```
-gcc -ansi -pedantic -Wall -o recover recoverMessage.c getImageArgs.c ppmReadWrite.c
+cd recoverMessage/ && make
+```
+or compiled manually with
+```
+gcc -ansi -pedantic -Wall recoverMessage.c -o recoverMessage getImageArgs.c ppmReadWrite.c
 ```
 
 Usage
 
 ```
-./recover -b [LSB bits] [PPM file with hidden message]
+./recoverMessage -b [LSB bits] [PPM file with hidden message]
 ```
 
     [LSB bits]: Number of LSBs used in the hidden message (1, 2, or 4).
