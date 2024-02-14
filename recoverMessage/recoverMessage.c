@@ -24,11 +24,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-int recoverMessage (struct Image *img, char bits[]);
-void printCharBits (unsigned char x);
+int recoverMessage(struct Image *img, char bits[]);
+void printCharBits(unsigned char x);
 
-int
-main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
   struct Image *img; /* pointer to image repsresentation */
   char imageFilename[20];
@@ -36,24 +35,24 @@ main (int argc, char *argv[])
   int argsOk;
   int fileOk;
 
-  argsOk = processImageArgs (argc, argv, &bit,
-                             imageFilename); /* bit as pointer because we want
-                                                to change it in program */
+  argsOk = processImageArgs(argc, argv, &bit,
+                            imageFilename); /* bit as pointer because we want
+                                               to change it in program */
   if (!argsOk)
     return 1;
 
-  fileOk = readImage (&img, imageFilename);
+  fileOk = readImage(&img, imageFilename);
 
   if (!fileOk)
     return 1;
 
-  recoverMessage (img, argv[2]); /* where we do all of the work */
+  recoverMessage(img, argv[2]); /* where we do all of the work */
 
   /* Free memory */
   if (img->data)
-    free (img->data);
+    free(img->data);
   if (img)
-    free (img);
+    free(img);
 
   return 0;
 }
@@ -61,13 +60,12 @@ main (int argc, char *argv[])
 /* function to recover the hidden message
 takes a struct pointer of bits, and the args index for size of bit to search in
 */
-int
-recoverMessage (struct Image *img, char bits[])
+int recoverMessage(struct Image *img, char bits[])
 {
   /* star operator  (*img).width ===== img->width */
-  unsigned char *color
-      = (unsigned char *)
-            img->data; /* pointer to the RGB color components of img */
+  unsigned char *color =
+      (unsigned char *)
+          img->data; /* pointer to the RGB color components of img */
   /* color is handle into byte arr (use it from here on out) */
   char ch = 0x0;
   char prevCh; /* prev character for loop */
@@ -80,19 +78,19 @@ recoverMessage (struct Image *img, char bits[])
 
   /* assigns the appropriate mask, shift length, and loop length for specified
    * bite length from args */
-  if (strcmp (bits, "1") == 0)
+  if (strcmp(bits, "1") == 0)
   {
     mask = 0x01;
     shift = 1;
     loop = 6;
   }
-  else if (strcmp (bits, "2") == 0)
+  else if (strcmp(bits, "2") == 0)
   {
     mask = 0x03;
     shift = 2;
     loop = 2;
   }
-  else if (strcmp (bits, "4") == 0)
+  else if (strcmp(bits, "4") == 0)
   {
     mask = 0x0f;
     shift = 4;
@@ -121,7 +119,7 @@ recoverMessage (struct Image *img, char bits[])
     i++;
 
     /* add to string */
-    strncat (steganString, &ch, 1);
+    strncat(steganString, &ch, 1);
 
     /* breaks when hits the :) identifier*/
     if (prevCh == 58 && ch == 41)
@@ -130,9 +128,9 @@ recoverMessage (struct Image *img, char bits[])
   }
 
   /* prints the appropriate information after completion */
-  printf ("%s", steganString);
-  printf ("\n%ld characters recovered from %d color components (%d pixels)\n",
-          strlen (steganString), i, (i + 2) / 3);
+  printf("%s", steganString);
+  printf("\n%ld characters recovered from %d color components (%d pixels)\n",
+         strlen(steganString), i, (i + 2) / 3);
 
   return 1;
 }
@@ -140,19 +138,18 @@ recoverMessage (struct Image *img, char bits[])
 /**
  * Helpful function that prints the bits of an unsigned char
  */
-void
-printCharBits (unsigned char x)
+void printCharBits(unsigned char x)
 {
   int value = x;
   char *bits;
   int i;
-  bits = malloc ((size_t)(sizeof (x) * 8 + 1));
-  for (i = 0; i < sizeof (x) * 8; i++)
+  bits = malloc((size_t)(sizeof(x) * 8 + 1));
+  for (i = 0; i < sizeof(x) * 8; i++)
   {
-    bits[sizeof (x) * 8 - i - 1] = (char)((value & 0x1) + 48);
+    bits[sizeof(x) * 8 - i - 1] = (char)((value & 0x1) + 48);
     value = value >> 1;
   }
-  bits[sizeof (x) * 8] = '\0';
-  printf ("%x(%s)\n", x, bits);
-  free (bits);
+  bits[sizeof(x) * 8] = '\0';
+  printf("%x(%s)\n", x, bits);
+  free(bits);
 }
