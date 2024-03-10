@@ -23,10 +23,12 @@ Hides a message in a PPM file.
 
 #### Compilation
 Compilation with make can be accomplished with
+
 ```
 cd hideMessage/ && make
 ```
 or compiled manually with
+
 ```
 gcc -ansi -pedantic -Wall hideMessage.c -o hideMessage getImageArgs.c ppmReadWrite.c
 ```
