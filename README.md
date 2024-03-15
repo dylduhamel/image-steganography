@@ -1,4 +1,4 @@
-# Image Steganography in C
+# Fast Image Steganography in C
 
 ## Overview
 
