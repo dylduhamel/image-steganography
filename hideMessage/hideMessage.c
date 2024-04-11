@@ -74,11 +74,12 @@ int main(int argc, char *argv[])
   return 0;
 }
 
-/*  function to hide the message in -b 1, 2, 4
-    takes Image struct, bit specyfier, and the name of file where message is
-   stores returns an integer 1 is no issues edits the LSB's on each RGB value
-   to hide char
- */
+/**  
+* function to hide the message in -b 1, 2, 4
+* takes Image struct, bit specyfier, and the name of file where message is
+* stores returns an integer 1 is no issues edits the LSB's on each RGB value
+* to hide char
+**/
 int hideMessageInImage(struct Image *img, int bit, char textFilename[])
 {
   unsigned char *color = (unsigned char *)img->data;
